@@ -10,6 +10,8 @@ const state = {
         new Todo('Aprender JavaScript'),
         new Todo('Aprender Vue.js'),
         new Todo('Aprender Node.js'),
+        new Todo('Aprender React.js'),
+        new Todo('Aprender Angular.js'),
     ],
     filter: Filters.All,
 }
@@ -52,23 +54,35 @@ const addTodo = ( description ) => {
  * @param {String} todoId 
  */
 const toggleTodo = ( todoId ) => {
-    throw new Error('Function not implemented.');
+    state.todos = state.todos.map( todo => {
+        if ( todo.id === todoId) {
+            todo.done = !todo.done;
+        }
+        return todo;
+    });
 }
 
 const deleteTodo = ( todoId ) => {
-    throw new Error('Function not implemented.');
+    state.todos = state.todos.filter( todo => todo.id !== todoId );
 }
 
 const deleteCompleted = () => {
-    throw new Error('Function not implemented.');
+        state.todos = state.todos.filter( todo => todo.done );
 }
 
+/**
+ * 
+ * @param {Filters} newFilter 
+ */
 const setFilter = ( newFilter = Filters.All ) => {
-    throw new Error('Function not implemented.');
+    if ( !Object.keys( Filters ).includes( newFilter ) ) {
+        throw new Error(`Option ${ newFilter } is not valid`);
+    }
+    state.filter = newFilter;
 }
 
 const getCurentFilter = () => {
-    throw new Error('Function not implemented.');
+    return state.filter;
 }
 
 export default {
